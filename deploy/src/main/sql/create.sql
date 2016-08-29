@@ -217,6 +217,20 @@ CREATE TABLE `team_workflow_instance_status` (
   KEY `INDEX_TEAMID_WORKFLOWID` (`team_id`,`workflow_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='公共工作流的每个team的调度表';
 
+CREATE VIEW workflow_task_instance
+AS select `task_instance`.`id` AS `id`,`task`.`name` AS `name`,1 AS `type`,
+          `task_instance`.`task_id` AS `workflow_task_id`,`task`.`owner` AS `owner`,
+          `task_instance`.`status` AS `status`,`task_instance`.`schedule_time` AS `schedule_time`,
+          `task_instance`.`start_time` AS `start_time`,`task_instance`.`end_time` AS `end_time`,
+          `task_instance`.`create_time` AS `create_time`,`task_instance`.`update_time` AS `update_time`
+   from (`task_instance` left join `task` on((`task_instance`.`task_id` = `task`.`id`)))
+   where (`task_instance`.`schedule_time` is not null) union select `workflow_instance`.`id` AS `id`,
+                                                                    `workflow`.`name` AS `name`,2 AS `2`,`workflow_instance`.`workflow_id` AS `task_workflow_id`,
+                                                                    `workflow`.`owner` AS `owner`,`workflow_instance`.`status` AS `status`,
+                                                                    `workflow_instance`.`schedule_time` AS `schedule_time`,`workflow_instance`.`start_time` AS `start_time`,
+                                                                    `workflow_instance`.`end_time` AS `end_time`,`workflow_instance`.`create_time` AS `create_time`,
+                                                                    `workflow_instance`.`update_time` AS `update_time` from (`workflow_instance` left join `workflow`
+    on((`workflow_instance`.`workflow_id` = `workflow`.`id`))) where (`workflow_instance`.`schedule_time` is not null);
 
 INSERT INTO `schedule_progress` (`id`) VALUES (1);
 INSERT INTO `team` (`id`,`name`,`create_time`,`update_time`) VALUES (1,'admin',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);

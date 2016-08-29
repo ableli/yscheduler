@@ -105,7 +105,7 @@ CREATE TABLE task (
   attachment_version bigint DEFAULT NULL,
   create_time datetime DEFAULT CURRENT_TIMESTAMP,
   update_time datetime NOT NULL,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE workflow (
@@ -122,7 +122,7 @@ CREATE TABLE workflow (
   last_schedule_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   create_time datetime DEFAULT CURRENT_TIMESTAMP,
   update_time datetime NOT NULL,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE workflow_authority (
@@ -158,7 +158,7 @@ CREATE TABLE workflow_instance (
   end_time datetime DEFAULT NULL,
   create_time datetime DEFAULT CURRENT_TIMESTAMP,
   update_time datetime NOT NULL,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE workflow_task_dependency (
@@ -178,7 +178,7 @@ CREATE TABLE `team_workflow_instance_status` (
   `status` tinyint NOT NULL,
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`)
 );
 
 CREATE VIEW workflow_task_instance
